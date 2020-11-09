@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ru.gkomega.api</groupId>
+        <artifactId>openparser-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <name>ru.gkomega.api.openparser.xml</name>
+    <description>OpenParser XML API</description>
+    <artifactId>openparser-xml</artifactId>
+    <packaging>jar</packaging>
+    <url>https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-xml</url>
+    <inceptionYear>2020</inceptionYear>
+
+    <properties>
+        <spring-oxm.version>5.3.0</spring-oxm.version>
+        <xstream.version>1.4.13</xstream.version>
+        <hikari.version>3.4.5</hikari.version>
+        <modelmapper.version>2.3.8</modelmapper.version>
+
+        <ru.gkomega.api.version>0.1.0-SNAPSHOT</ru.gkomega.api.version>
+    </properties>
+
+    <dependencies>
+        <!-- OpenParser library dependencies -->
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-batch</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-commons</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-executor</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-xstream</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Spring Boot library dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Spring library dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring-oxm.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- XStream library dependencies -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream-hibernate</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
+
+        <!-- Hikari connection pool library dependencies -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikari.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Hsqldb library dependencies -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- ModelMapper library dependencies -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
+
+        <!-- Spring test library dependencies -->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- OpenParser test library dependencies -->
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-commons</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <classifier>tests</classifier>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <finalName>${project.groupId}-${project.artifactId}-${project.version}</finalName>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <addResources>true</addResources>
+                    <classifier>exec</classifier>
+                    <additionalProperties>
+                        <java.target>${maven.compiler.target}</java.target>
+                        <time>${maven.build.timestamp}</time>
+                    </additionalProperties>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot.experimental</groupId>
+                        <artifactId>spring-boot-thin-layout</artifactId>
+                        <version>${spring-boot-thin-layout.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${repackage.skip}</skip>
+                            <excludeDevtools>${excludeDevTools}</excludeDevtools>
+                            <excludeGroupIds>org.projectlombok</excludeGroupIds>
+                            <classifier>exec</classifier>
+                            <outputDirectory>${project.build.directory}/repackage</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

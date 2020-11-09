@@ -1,0 +1,26 @@
+# OpenParser XStream test configuration
+---
+spring:
+  output:
+    ansi:
+      enabled: NEVER
+  application:
+    name: "@project.artifactId@"
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    # 1 hour
+    cache-duration: 3600
+  main:
+    log-startup-info: true
+    allow-bean-definition-overriding: true
+
+logging:
+  file:
+    name: ${spring.application.name}
+
+openparser:
+  xstream:
+    settings:
+      xml:
+        stream-driver: com.thoughtworks.xstream.io.xml.StaxDriver

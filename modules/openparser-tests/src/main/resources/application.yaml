@@ -1,0 +1,46 @@
+# OpenParser tests configuration
+---
+server:
+  port: 8088
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    min-response-size: 1024
+  forward-headers-strategy: FRAMEWORK
+  error:
+    path: /error
+    include-stacktrace: NEVER
+
+spring:
+  output:
+    ansi:
+      enabled: NEVER
+  application:
+    name: "@project.artifactId@"
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    # 1 hour
+    cache-duration: 3600
+  main:
+    log-startup-info: true
+  task:
+    execution:
+      thread-name-prefix: test
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100000
+
+logging:
+  file:
+    name: ${spring.application.name}
+
+openparser:
+  batch:
+    resources:
+      xml:
+        root-elements:
+          - "xml"
+        test: "test"
