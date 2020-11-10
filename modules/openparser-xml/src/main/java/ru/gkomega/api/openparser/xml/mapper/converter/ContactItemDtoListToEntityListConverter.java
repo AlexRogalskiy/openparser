@@ -42,20 +42,20 @@ public class ContactItemDtoListToEntityListConverter implements Converter<List<C
     private Function<ContactItemDto.ContactItemInfoDto, ContactItemEntity> mapToEntity() {
         return contactItemDto -> {
             final ContactItemEntity contactItemEntity = new ContactItemEntity();
-            contactItemDto.setActiveAt(contactItemDto.getActiveAt());
-            contactItemDto.setAddress(contactItemDto.getAddress());
-            contactItemDto.setCity(contactItemDto.getCity());
-            contactItemDto.setContactType(contactItemDto.getContactType());
-            contactItemDto.setCountry(contactItemDto.getCountry());
-            contactItemDto.setDomainName(contactItemDto.getDomainName());
-            contactItemDto.setFullPhoneNumber(contactItemDto.getFullPhoneNumber());
-            contactItemDto.setRefKey(contactItemDto.getRefKey());
-            contactItemDto.setLineNumber(contactItemDto.getLineNumber());
-            contactItemDto.setRegion(contactItemDto.getRegion());
-            contactItemDto.setView(contactItemDto.getView());
-            contactItemDto.setViewData(contactItemDto.getViewData());
-            contactItemDto.setViewKey(contactItemDto.getViewKey());
-            contactItemDto.setViewListKey(contactItemDto.getViewListKey());
+            contactItemEntity.setActiveAt(contactItemDto.getActiveAt());
+            contactItemEntity.setAddress(contactItemDto.getAddress());
+            contactItemEntity.setCity(contactItemDto.getCity());
+            contactItemEntity.setContactType(contactItemDto.getContactType());
+            contactItemEntity.setCountry(contactItemDto.getCountry());
+            contactItemEntity.setDomainName(contactItemDto.getDomainName());
+            contactItemEntity.setFullPhoneNumber(contactItemDto.getFullPhoneNumber());
+            contactItemEntity.setPhoneNumber(contactItemDto.getPhoneNumber());
+            contactItemEntity.setRefKey(contactItemDto.getRefKey());
+            contactItemEntity.setLineNumber(contactItemDto.getLineNumber());
+            contactItemEntity.setRegion(contactItemDto.getRegion());
+            contactItemEntity.setView(contactItemDto.getView());
+            contactItemEntity.setViewKey(contactItemDto.getViewKey());
+            contactItemEntity.setViewListKey(contactItemDto.getViewListKey());
             return contactItemEntity;
         };
     }

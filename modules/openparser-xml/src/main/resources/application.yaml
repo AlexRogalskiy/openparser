@@ -35,20 +35,20 @@ spring:
         max-size: 20
         queue-capacity: 100000
   batch:
-    initialize-schema: always
+    initialize-schema: ALWAYS
     table-prefix: "batch_"
     job:
       enabled: true
       names: catalogDataLoaderJob
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:hsqldb:file:db/catalogdb;
+    url: ${DB_URL:jdbc:hsqldb:file:db/catalogdb}
     #url: jdbc:hsqldb:hsql://localhost:9001/catalogdb
     driver-class-name: ${DB_DRIVER:org.hsqldb.jdbc.JDBCDriver}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:}
     sql-script-encoding: UTF-8
-    initialization-mode: always
+    initialization-mode: ALWAYS
     hikari:
       minimum-idle: 5
       maximum-pool-size: 10

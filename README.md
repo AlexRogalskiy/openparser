@@ -53,7 +53,10 @@ OpenParser module dependencies:
 
 - [**OpenParser Commons**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-commons)  
   `openparser-commons` - Library with utilities for common use cases.
-  
+
+- [**OpenParser Csv**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-csv)  
+  `openparser-csv` - Library to work with Csv API.
+
 - [**OpenParser Executor**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-executor)  
   `openparser-processor` - Library to work with Executor API.
   

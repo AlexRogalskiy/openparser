@@ -1,4 +1,4 @@
-package ru.gkomega.api.openparser.xml.enumeration;
+package ru.gkomega.api.openparser.batch.event.enumeration;
 
 public enum StatusType {
     INITIALIZED,

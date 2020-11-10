@@ -26,24 +26,24 @@ public class CatalogItemEntity extends BaseItemEntity<UUID> {
      */
     private static final long serialVersionUID = 1261432457095363629L;
 
-    @Column(name = "refKey")
+    @Column(name = "refKey", nullable = false)
     @Type(type = "uuid-char")
     private UUID refKey;
 
-    @Column(name = "category", nullable = false)
+    @Column(name = "category")
     private String category;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "updatedAt", nullable = false)
+    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @Column(name = "author", nullable = false)
+    @Column(name = "author")
     private String author;
 
     @Lob
-    @Column(name = "summary", nullable = false, length = 1024)
+    @Column(name = "summary", length = 1024)
     private String summary;
 
     @BatchSize(size = 10)

@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-//@TypeQualifierDefault(ElementType.TYPE)
+@TypeQualifierDefault(ElementType.TYPE)
 @Import(XStreamConfiguration.class)
 public @interface EnableXStream {
 }

@@ -1,10 +1,10 @@
-package ru.gkomega.api.openparser.xml.configuration;
+package ru.gkomega.api.openparser.batch.event.pubsub;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import ru.gkomega.api.openparser.xml.model.domain.StepExecutionEvent;
+import ru.gkomega.api.openparser.batch.event.domain.StepExecutionEvent;
 
 import java.time.Instant;
 
@@ -30,12 +30,12 @@ public class StepExecutionEventListener {
      */
     private void logEvent(final StepExecutionEvent event) {
         log.info(
-                ">>> Source: [{}] >>> handling [{}]: >>> status: [{}], timestamp: [{}], message: [{}]",
-                event.getSource().getClass().getSimpleName(),
-                event.getClass().getSimpleName(),
-                event.getMessageData().getStatus(),
-                Instant.ofEpochMilli(event.getTimestamp()),
-                event.getMessageData().getMessage()
+            ">>> Source: [{}] >>> handling [{}]: >>> status: [{}], timestamp: [{}], message: [{}]",
+            event.getSource().getClass().getSimpleName(),
+            event.getClass().getSimpleName(),
+            event.getMessageData().getStatus(),
+            Instant.ofEpochMilli(event.getTimestamp()),
+            event.getMessageData().getMessage()
         );
     }
 }

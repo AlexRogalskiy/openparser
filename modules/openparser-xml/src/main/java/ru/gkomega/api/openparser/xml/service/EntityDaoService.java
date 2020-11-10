@@ -2,6 +2,7 @@ package ru.gkomega.api.openparser.xml.service;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ public class EntityDaoService implements EntityManagerAware {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     public <ID, T extends Persistable<ID>> T get(final Class<T> type, final ID id) {
         return this.entityManager.find(type, id);
     }
@@ -36,6 +38,7 @@ public class EntityDaoService implements EntityManagerAware {
     }
 
     @SuppressWarnings("rawtypes")
+    @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     public <ID, T extends Persistable<ID>> List getAll(final Class<? extends T> tableClass) {
         final Query query = this.entityManager.createQuery("from " + tableClass.getSimpleName());
         return query.getResultList();

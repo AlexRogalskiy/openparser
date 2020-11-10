@@ -20,7 +20,7 @@ import java.util.UUID;
 @Validated
 @NoArgsConstructor
 @AllArgsConstructor
-//@XStreamAlias("КонтактнаяИнформация")
+@XStreamAlias("КонтактнаяИнформация")
 public class ContactItemDto implements Serializable {
     /**
      * Default explicit serialVersionUID for interoperability
@@ -29,7 +29,6 @@ public class ContactItemDto implements Serializable {
 
     @Valid
     @NullOrNotEmpty(message = "{model.catalog.contact.element.nullOrNotEmpty}")
-//    @XStreamAlias("element")
     @XStreamImplicit(itemFieldName = "element")
     private List<@NotNull ContactItemInfoDto> contactItemInfoList;
 

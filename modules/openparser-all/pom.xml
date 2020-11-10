@@ -37,6 +37,12 @@
         </dependency>
         <dependency>
             <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-csv</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
             <artifactId>openparser-executor</artifactId>
             <version>${ru.gkomega.api.version}</version>
             <scope>compile</scope>

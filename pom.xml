@@ -80,6 +80,7 @@
         <module>modules/openparser-all</module>
         <module>modules/openparser-batch</module>
         <module>modules/openparser-commons</module>
+        <module>modules/openparser-csv</module>
         <module>modules/openparser-executor</module>
         <module>modules/openparser-xml</module>
         <module>modules/openparser-xstream</module>

@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import ru.gkomega.api.openparser.commons.annotation.NullOrNotEmpty;
 import ru.gkomega.api.openparser.xstream.converter.UuidConverter;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Validated
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("entry")

@@ -10,6 +10,7 @@ public class XmlFileCatalogItemReader extends StaxEventItemReader<CatalogItemDto
     public XmlFileCatalogItemReader(final XmlResourceProperty resourceProperty,
                                     final Unmarshaller unmarshaller) {
         this.setFragmentRootElementNames(resourceProperty.getRootElements());
+        this.setSaveState(false);
         this.setUnmarshaller(unmarshaller);
     }
 }

@@ -1,6 +1,5 @@
 package ru.gkomega.api.openparser.xml.configuration;
 
-import com.thoughtworks.xstream.converters.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -14,14 +13,13 @@ import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
-import ru.gkomega.api.openparser.xstream.converter.LocalDateTimeConverter;
 
 import java.util.List;
 
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Description("OpenParser Xml configuration")
-public class XmlXStreamConfiguration {
+public class XmlConfiguration {
 
     @Bean
     @Description("Conversion service bean")
@@ -67,11 +65,5 @@ public class XmlXStreamConfiguration {
     @Description("Model mapper property mappings customizer bean")
     public ModelMapperCustomizer propertyMappingModelMapperCustomizer(final ObjectProvider<List<PropertyMap<?, ?>>> propertyMapListProvider) {
         return modelMapper -> propertyMapListProvider.ifAvailable(c -> c.forEach(modelMapper::addMappings));
-    }
-
-    @Bean
-    @Description("Local datetime converter bean")
-    public Converter localDateTimeConverter() {
-        return new LocalDateTimeConverter();
     }
 }

@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @EnableBatchProcessing
-//@TypeQualifierDefault(ElementType.TYPE)
+@TypeQualifierDefault(ElementType.TYPE)
 @Import(BatchConfiguration.class)
 public @interface EnableBatch {
     /**

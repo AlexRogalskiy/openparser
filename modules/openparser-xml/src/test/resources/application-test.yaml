@@ -22,8 +22,8 @@ spring:
         max-size: 20
         queue-capacity: 100000
   batch:
-    initialize-schema: never
-    table-prefix: batch_
+    initialize-schema: ALWAYS
+    table-prefix: "batch_"
     job:
       enabled: false
   datasource:
@@ -33,7 +33,7 @@ spring:
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:}
     sql-script-encoding: UTF-8
-    initialization-mode: always
+    initialization-mode: ALWAYS
     hikari:
       minimum-idle: 5
       maximum-pool-size: 10
@@ -55,7 +55,7 @@ spring:
     properties:
       hibernate:
         dialect: ${DB_PLATFORM:org.hibernate.dialect.HSQLDialect}
-        ddl-auto: none
+        ddl-auto: create-drop
         order_inserts: false
         order_updates: false
         show-sql: true
@@ -81,7 +81,7 @@ spring:
           fetch_size: 20
           batch_size: 15
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
       use-new-id-generator-mappings: false
 
 logging:

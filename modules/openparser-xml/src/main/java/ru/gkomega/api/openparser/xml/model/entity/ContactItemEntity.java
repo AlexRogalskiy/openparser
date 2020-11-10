@@ -32,48 +32,48 @@ public class ContactItemEntity extends BaseItemEntity<UUID> {
     @JoinColumn(name = "contractorItemId", referencedColumnName = "id", nullable = false)
     private ContractorItemEntity contractorItem;
 
-    @Column(name = "refKey", nullable = false)
+    @Column(name = "refKey")
     @Type(type = "uuid-char")
     private UUID refKey;
 
-    @Column(name = "lineNumber", nullable = false)
+    @Column(name = "lineNumber")
     private int lineNumber;
 
-    @Column(name = "contactType", nullable = false)
+    @Column(name = "contactType")
     private String contactType;
 
-    @Column(name = "viewKey", nullable = false)
+    @Column(name = "viewKey")
     @Type(type = "uuid-char")
     private UUID viewKey;
 
-    @Column(name = "view", nullable = false)
+    @Column(name = "view")
     private String view;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country")
     private String country;
 
-    @Column(name = "region", nullable = false)
+    @Column(name = "region")
     private String region;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "domainName", nullable = false)
+    @Column(name = "domainName")
     private String domainName;
 
-    @Column(name = "fullPhoneNumber", nullable = false)
+    @Column(name = "fullPhoneNumber")
     private String fullPhoneNumber;
 
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "viewListKey", nullable = false)
+    @Column(name = "viewListKey")
     @Type(type = "uuid-char")
     private UUID viewListKey;
 
-    @Column(name = "activeAt", nullable = false)
+    @Column(name = "activeAt")
     private LocalDateTime activeAt;
 }

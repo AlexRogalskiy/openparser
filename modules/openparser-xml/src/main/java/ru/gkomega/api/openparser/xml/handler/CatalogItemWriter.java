@@ -18,18 +18,24 @@ public class CatalogItemWriter implements ItemWriter<CatalogItemEntity> {
     private final EntityDaoService entityDaoService;
 
     @Override
-    public void write(final List<? extends CatalogItemEntity> list) {
-        list.forEach(this::saveCatalogItem);
+    public void write(final List<? extends CatalogItemEntity> items) {
+        items.forEach(this::saveEntity);
     }
 
-    private void saveCatalogItem(final CatalogItemEntity itemEntity) {
+    private void saveEntity(final CatalogItemEntity itemEntity) {
         log.info(">>> Saving catalog item: {}", itemEntity);
 
         try {
-            itemEntity.setContractorItemList(null);
+            itemEntity.getContractorItemList().forEach(item -> {
+                item.setCatalogItem(itemEntity);
+                item.getContactItems().forEach(item2 -> {
+                    item2.setContractorItem(item);
+                });
+            });
+
             this.entityDaoService.update(itemEntity);
         } catch (Exception ex) {
-            throw new PersistenceException("Could not store catalog item", ex);
+            throw new PersistenceException("Could not persist catalog item", ex);
         }
     }
 }

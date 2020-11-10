@@ -1,4 +1,4 @@
-package ru.gkomega.api.openparser.xml.handler;
+package ru.gkomega.api.openparser.csv.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import ru.gkomega.api.openparser.batch.property.ResourceProperty;
-import ru.gkomega.api.openparser.xml.model.dto.CatalogItemDto;
+import ru.gkomega.api.openparser.csv.model.CatalogItemDto;
 
 import javax.annotation.PostConstruct;
 

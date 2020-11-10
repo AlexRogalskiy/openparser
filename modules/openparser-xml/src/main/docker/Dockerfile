@@ -12,7 +12,7 @@ USER spring:spring
 VOLUME /tmp
 
 LABEL org.opencontainers.image.title="GkOmega.OpenParser"
-LABEL org.opencontainers.image.description="GkOmega Open Parser application"
+LABEL org.opencontainers.image.description="GkOmega OpenParser application"
 LABEL org.opencontainers.image.vendor="GkOmega, Ltd."
 LABEL org.opencontainers.image.version="1.0"
 

@@ -1,8 +1,8 @@
-package ru.gkomega.api.openparser.xml.model.domain;
+package ru.gkomega.api.openparser.batch.event.domain;
 
 import lombok.Data;
 import lombok.Value;
-import ru.gkomega.api.openparser.xml.enumeration.StatusType;
+import ru.gkomega.api.openparser.batch.event.enumeration.StatusType;
 
 import java.io.Serializable;
 

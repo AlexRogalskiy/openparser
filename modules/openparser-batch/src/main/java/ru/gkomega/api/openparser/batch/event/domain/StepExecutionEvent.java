@@ -1,4 +1,4 @@
-package ru.gkomega.api.openparser.xml.model.domain;
+package ru.gkomega.api.openparser.batch.event.domain;
 
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;

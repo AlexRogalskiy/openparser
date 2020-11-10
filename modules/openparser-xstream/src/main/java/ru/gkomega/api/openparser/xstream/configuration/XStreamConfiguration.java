@@ -5,6 +5,9 @@ import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.core.ReferenceByXPathMarshallingStrategy;
 import com.thoughtworks.xstream.hibernate.mapper.HibernateMapper;
 import com.thoughtworks.xstream.mapper.MapperWrapper;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -38,6 +41,7 @@ public abstract class XStreamConfiguration {
     public static final String XSTREAM_CONFIGURATION_PROVIDER_BEAN_NAME = "xstreamConfigurationProvider";
 
     public static final String XSTREAM_APPLICATION_CUSTOMIZER_PROVIDER_BEAN_NAME = "xStreamApplicationCustomizer";
+    public static final String XSTREAM_PERMISSION_CUSTOMIZER_PROVIDER_BEAN_NAME = "xStreamPermissionCustomizerProvider";
     public static final String XSTREAM_CONVERTER_CUSTOMIZER_PROVIDER_BEAN_NAME = "xStreamConverterCustomizer";
 
     @Bean(XSTREAM_PROVIDER_BEAN_NAME)
@@ -62,11 +66,22 @@ public abstract class XStreamConfiguration {
     @ConditionalOnMissingBean(name = XSTREAM_APPLICATION_CUSTOMIZER_PROVIDER_BEAN_NAME)
     @Description("XStream application customizer provider bean")
     public Function<XStreamProperty.XStreamConfiguration, XStreamCustomizer> xStreamApplicationCustomizerProvider() {
-        return property -> xstream -> {
-            xstream.setMarshallingStrategy(new ReferenceByXPathMarshallingStrategy(ReferenceByXPathMarshallingStrategy.RELATIVE));
-            xstream.setMode(property.getMode());
-            xstream.autodetectAnnotations(property.isAutodetectAnnotations());
-            xstream.ignoreUnknownElements(property.getIgnorePattern());
+        return property -> xStream -> {
+            xStream.setMarshallingStrategy(new ReferenceByXPathMarshallingStrategy(ReferenceByXPathMarshallingStrategy.RELATIVE));
+            xStream.setMode(property.getMode());
+            xStream.autodetectAnnotations(property.isAutodetectAnnotations());
+            xStream.ignoreUnknownElements(property.getIgnorePattern());
+        };
+    }
+
+    @Bean(XSTREAM_PERMISSION_CUSTOMIZER_PROVIDER_BEAN_NAME)
+    @ConditionalOnMissingBean(name = XSTREAM_PERMISSION_CUSTOMIZER_PROVIDER_BEAN_NAME)
+    @Description("XStream permission customizer provider bean")
+    public Function<XStreamProperty.XStreamConfiguration, XStreamCustomizer> xStreamPermissionCustomizerProvider() {
+        return property -> xStream -> {
+            xStream.addPermission(NoTypePermission.NONE);
+            xStream.addPermission(NullPermission.NULL);
+            xStream.addPermission(PrimitiveTypePermission.PRIMITIVES);
         };
     }
 
@@ -74,7 +89,7 @@ public abstract class XStreamConfiguration {
     @ConditionalOnMissingBean(name = XSTREAM_CONVERTER_CUSTOMIZER_PROVIDER_BEAN_NAME)
     @Description("XStream converter customizer provider bean")
     public Function<XStreamProperty.XStreamConfiguration, XStreamCustomizer> xStreamConverterCustomizerProvider(final ObjectProvider<List<Converter>> xStreamConverterProvider) {
-        return property -> xstream -> xStreamConverterProvider.ifAvailable(c -> c.forEach(xstream::registerConverter));
+        return property -> xStream -> xStreamConverterProvider.ifAvailable(c -> c.forEach(xStream::registerConverter));
     }
 
     @Bean(XSTREAM_CONFIGURATION_PROVIDER_BEAN_NAME)

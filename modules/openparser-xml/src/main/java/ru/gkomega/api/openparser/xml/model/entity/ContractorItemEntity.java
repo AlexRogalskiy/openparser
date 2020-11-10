@@ -37,44 +37,45 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     @Type(type = "uuid-char")
     private UUID refKey;
 
-    @Column(name = "dataVersion", nullable = false)
+    @Column(name = "dataVersion")
     private String dataVersion;
 
-    @Column(name = "deleted", nullable = false)
+    @Column(name = "deleted")
     private boolean deleted;
 
-    @Column(name = "parentKey", nullable = false)
+    @Column(name = "parentKey")
     @Type(type = "uuid-char")
     private UUID parentKey;
 
-    @Column(name = "folder", nullable = false)
+    @Column(name = "folder")
     private boolean folder;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "code")
     private String code;
 
     @Lob
-    @Column(name = "description", nullable = false, length = 1024)
+    @Column(name = "description", length = 1024)
     private String description;
 
-    @Column(name = "groupAccessKey", nullable = false)
+    @Column(name = "groupAccessKey")
     @Type(type = "uuid-char")
     private UUID groupAccessKey;
 
-    @Column(name = "inn", nullable = false)
+    @Column(name = "inn")
     private String inn;
 
-    @Column(name = "okpo", nullable = false)
+    @Column(name = "okpo")
     private String okpo;
 
     @Lob
-    @Column(name = "comments", nullable = false, length = 1024)
+    @Column(name = "comments", length = 1024)
     private String comments;
 
-    @Column(name = "kpp", nullable = false)
+    @Column(name = "kpp")
     private String kpp;
 
-    @Column(name = "fullName", nullable = false)
+    @Lob
+    @Column(name = "fullName", length = 1024)
     private String fullName;
 
     @Column(name = "bankAccountKey")
@@ -97,7 +98,7 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     @Type(type = "uuid-char")
     private UUID jurFizKey;
 
-    @Column(name = "magicId", nullable = false)
+    @Column(name = "magicId")
     private String magicId;
 
     @BatchSize(size = 10)
