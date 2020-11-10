@@ -46,7 +46,8 @@ public class ContactItemEntity extends BaseItemEntity<UUID> {
     @Type(type = "uuid-char")
     private UUID viewKey;
 
-    @Column(name = "view")
+    @Lob
+    @Column(name = "view", length = 1024)
     private String view;
 
     @Column(name = "country")
