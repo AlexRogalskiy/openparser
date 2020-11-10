@@ -8,6 +8,8 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemStreamReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
+import org.springframework.batch.item.file.builder.MultiResourceItemReaderBuilder;
 import org.springframework.batch.item.support.SynchronizedItemStreamReader;
 import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,12 +19,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Role;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.gkomega.api.openparser.batch.handler.CustomJobListener;
-import ru.gkomega.api.openparser.batch.handler.MultiResourceReader;
 import ru.gkomega.api.openparser.batch.property.BatchProperty;
 import ru.gkomega.api.openparser.xml.handler.CalculateStatisticsTasklet;
 import ru.gkomega.api.openparser.xml.handler.CatalogItemProcessor;
@@ -32,6 +36,7 @@ import ru.gkomega.api.openparser.xml.model.dto.CatalogItemDto;
 import ru.gkomega.api.openparser.xml.model.entity.CatalogItemEntity;
 import ru.gkomega.api.openparser.xml.property.XmlResourceProperty;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static org.springframework.batch.core.ExitStatus.COMPLETED;
@@ -49,6 +54,7 @@ public class XmlBatchConfiguration {
      */
     public static final String DATA_XML_UNMARSHALLER_BEAN_NAME = "xmlDataUnmarshaller";
     public static final String DATA_XML_READER_BEAN_NAME = "xmlFileDataReader";
+    public static final String DATA_XML_MULTI_READER_BEAN_NAME = "xmlFileMultiDataReader";
 
     public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "catalogDataLoaderJob";
 
@@ -71,17 +77,30 @@ public class XmlBatchConfiguration {
 
     @Bean(DATA_XML_READER_BEAN_NAME)
     @StepScope
-    @Description("Catalog item xml reader bean")
-    public SynchronizedItemStreamReader<CatalogItemDto> xmlCatalogDataReader(final XmlResourceProperty xmlResourceProperty,
-                                                                             @Qualifier(DATA_XML_UNMARSHALLER_BEAN_NAME) final Unmarshaller unmarshaller) {
+    @Description("Catalog item synchronized xml reader bean")
+    public SynchronizedItemStreamReader<CatalogItemDto> xmlCatalogDataReader(@Qualifier(DATA_XML_MULTI_READER_BEAN_NAME) final MultiResourceItemReader<CatalogItemDto> itemReader) {
+        final SynchronizedItemStreamReader<CatalogItemDto> synchronizedItemStreamReader = new SynchronizedItemStreamReader<>();
+        synchronizedItemStreamReader.setDelegate(itemReader);
+        return synchronizedItemStreamReader;
+    }
+
+    @Bean(DATA_XML_MULTI_READER_BEAN_NAME)
+    @Description("Catalog item multi resource xml reader bean")
+    public MultiResourceItemReader<CatalogItemDto> xmlMultiResourceCatalogDataReader(final XmlResourceProperty xmlResourceProperty,
+                                                                                     @Qualifier(DATA_XML_UNMARSHALLER_BEAN_NAME) final Unmarshaller unmarshaller) throws IOException {
         final StaxEventItemReader<CatalogItemDto> xmlFileReader = new StaxEventItemReader<>();
         xmlFileReader.setFragmentRootElementNames(xmlResourceProperty.getRootElements());
         xmlFileReader.setUnmarshaller(unmarshaller);
         xmlFileReader.setSaveState(false);
 
-        final SynchronizedItemStreamReader<CatalogItemDto> synchronizedItemStreamReader = new SynchronizedItemStreamReader<>();
-        synchronizedItemStreamReader.setDelegate(new MultiResourceReader<>(xmlResourceProperty, xmlFileReader));
-        return synchronizedItemStreamReader;
+        final ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
+        final Resource[] resources = patternResolver.getResources(xmlResourceProperty.getPathPattern());
+
+        return new MultiResourceItemReaderBuilder<CatalogItemDto>()
+            .delegate(xmlFileReader)
+            .resources(resources)
+            .saveState(false)
+            .build();
     }
 
     @Bean(JOB_CATALOG_DATA_LOADER_BEAN_NAME)

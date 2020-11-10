@@ -12,8 +12,16 @@ import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.builder.MultiResourceItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
+import org.springframework.batch.item.json.JacksonJsonObjectReader;
+import org.springframework.batch.item.json.JsonFileItemWriter;
+import org.springframework.batch.item.json.JsonItemReader;
+import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
+import org.springframework.batch.item.json.builder.JsonItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,6 +30,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.gkomega.api.openparser.batch.handler.CustomJobListener;
 import ru.gkomega.api.openparser.batch.handler.MultiResourceReader;
@@ -33,6 +44,7 @@ import ru.gkomega.api.openparser.csv.model.CatalogItemDto;
 import ru.gkomega.api.openparser.csv.property.CsvResourceProperty;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 import static org.springframework.batch.core.ExitStatus.COMPLETED;
 import static org.springframework.batch.core.ExitStatus.FAILED;
@@ -73,6 +85,36 @@ public class CsvBatchConfiguration {
     @StepScope
     public ItemReader<CatalogItemDto> csvCatalogDataReader(final CsvResourceProperty csvResourceProperty) {
         return new MultiResourceReader<>(csvResourceProperty, new CsvFileCatalogItemReader(csvResourceProperty));
+    }
+
+    @Bean
+    public JsonItemReader<CatalogItemDto> jsonItemReader() {
+        return new JsonItemReaderBuilder<CatalogItemDto>()
+            .jsonObjectReader(new JacksonJsonObjectReader<>(CatalogItemDto.class))
+            .resource(new ClassPathResource("trades.json"))
+            .name("tradeJsonItemReader")
+            .build();
+    }
+
+    @Bean
+    public JsonFileItemWriter<CatalogItemDto> jsonFileItemWriter() {
+        return new JsonFileItemWriterBuilder<CatalogItemDto>()
+            .jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>())
+            .resource(new ClassPathResource("trades.json"))
+            .name("tradeJsonFileItemWriter")
+            .build();
+    }
+
+    @Bean
+    public MultiResourceItemReader<CatalogItemDto> multiResourceReader(final CsvResourceProperty csvResourceProperty,
+                                                                       final JsonItemReader<CatalogItemDto> jsonItemReader) throws IOException {
+        final ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
+        final Resource[] resources = patternResolver.getResources(csvResourceProperty.getPathPattern());
+        return new MultiResourceItemReaderBuilder<CatalogItemDto>()
+            .delegate(jsonItemReader)
+            .resources(resources)
+            .saveState(false)
+            .build();
     }
 
     @Bean(DATA_BATCH_WRITER_BEAN_NAME)

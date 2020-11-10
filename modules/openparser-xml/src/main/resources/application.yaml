@@ -107,7 +107,7 @@ openparser:
   batch:
     resources:
       xml:
-        path-pattern: "data/template.xml"
+        path-pattern: "data/template2.xml"
         root-elements:
           - "entry"
   xstream:
