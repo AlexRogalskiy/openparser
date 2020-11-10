@@ -19,6 +19,7 @@
 
     <properties>
         <jettison.version>1.4.1</jettison.version>
+        <p6spy.version>3.9.1</p6spy.version>
         <hikari.version>3.4.5</hikari.version>
         <xstream.version>1.4.13</xstream.version>
 
@@ -91,6 +92,14 @@
                     <artifactId>tools</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- P6spy library dependencies -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>${p6spy.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Hsqldb library dependencies -->

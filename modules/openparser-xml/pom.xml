@@ -20,6 +20,7 @@
     <properties>
         <spring-oxm.version>5.3.0</spring-oxm.version>
         <xstream.version>1.4.13</xstream.version>
+        <p6spy.version>3.9.1</p6spy.version>
         <hikari.version>3.4.5</hikari.version>
         <modelmapper.version>2.3.8</modelmapper.version>
 
@@ -125,6 +126,14 @@
                     <artifactId>tools</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- P6spy library dependencies -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>${p6spy.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Hsqldb library dependencies -->

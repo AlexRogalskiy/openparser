@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 import ru.gkomega.api.openparser.xml.mapper.converter.ContactItemDtoListToEntityListConverter;
-import ru.gkomega.api.openparser.xml.mapper.converter.OptionalConverter;
+import ru.gkomega.api.openparser.xml.mapper.converter.StringToUuidConverter;
 import ru.gkomega.api.openparser.xml.model.dto.ContractorItemDto;
 import ru.gkomega.api.openparser.xml.model.entity.ContractorItemEntity;
 
@@ -15,8 +15,8 @@ import ru.gkomega.api.openparser.xml.model.entity.ContractorItemEntity;
 @RequiredArgsConstructor
 public class ContractorItemDtoToEntityPropertyMap extends PropertyMap<ContractorItemDto, ContractorItemEntity> {
 
-    private final OptionalConverter optionalConverter;
     private final ContactItemDtoListToEntityListConverter contactItemDtoListToEntityListConverter;
+    private final StringToUuidConverter stringToUuidConverter;
 
     /**
      * {@link ContractorItemEntity} {@link PropertyMap} configuration
@@ -41,12 +41,11 @@ public class ContractorItemDtoToEntityPropertyMap extends PropertyMap<Contractor
         this.map().setFolder(this.source.getContractorItemInfo().isFolder());
 
         // mapping destination properties via converters
+        this.using(this.stringToUuidConverter).map(this.source.getContractorItemInfo().getBankAccountKey()).setBankAccountKey(null);
+        this.using(this.stringToUuidConverter).map(this.source.getContractorItemInfo().getFizKey()).setFizKey(null);
+        this.using(this.stringToUuidConverter).map(this.source.getContractorItemInfo().getJurFizKey()).setJurFizKey(null);
+        this.using(this.stringToUuidConverter).map(this.source.getContractorItemInfo().getRegisteredNumber()).setRegisteredNumber(null);
+        this.using(this.stringToUuidConverter).map(this.source.getContractorItemInfo().getResponsibilityKey()).setResponsibilityKey(null);
         this.using(this.contactItemDtoListToEntityListConverter).map(this.source.getContractorItemInfo().getContactItemList()).setContactItems(null);
-
-        this.using(this.optionalConverter).map(this.source.getContractorItemInfo().getBankAccountKey()).setBankAccountKey(null);
-        this.using(this.optionalConverter).map(this.source.getContractorItemInfo().getFizKey()).setFizKey(null);
-        this.using(this.optionalConverter).map(this.source.getContractorItemInfo().getJurFizKey()).setJurFizKey(null);
-        this.using(this.optionalConverter).map(this.source.getContractorItemInfo().getRegisteredNumber()).setRegisteredNumber(null);
-        this.using(this.optionalConverter).map(this.source.getContractorItemInfo().getResponsibilityKey()).setResponsibilityKey(null);
     }
 }

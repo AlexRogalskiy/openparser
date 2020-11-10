@@ -12,7 +12,10 @@ import org.springframework.data.domain.Auditable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
 import java.time.Instant;
@@ -38,10 +41,9 @@ public abstract class AuditEntity<ID extends Serializable> implements Auditable<
     @Column(name = "created", nullable = false, updatable = false)
     private Instant createdDate;
 
-    @Lob
     @CreatedBy
     @Basic(fetch = FetchType.LAZY)
-    @Column(name = "created_by", nullable = false, updatable = false, length = 512)
+    @Column(name = "created_by", nullable = false, updatable = false, length = 256)
     @GeneratorType(type = PrincipalUserGenerator.class, when = GenerationTime.INSERT)
     private String createdBy;
 
@@ -51,10 +53,9 @@ public abstract class AuditEntity<ID extends Serializable> implements Auditable<
     @Column(name = "modified", insertable = false)
     private Instant lastModifiedDate;
 
-    @Lob
     @LastModifiedBy
     @Basic(fetch = FetchType.LAZY)
-    @Column(name = "modified_by", insertable = false, length = 512)
+    @Column(name = "modified_by", insertable = false, length = 256)
     @GeneratorType(type = PrincipalUserGenerator.class, when = GenerationTime.ALWAYS)
     private String lastModifiedBy;
 

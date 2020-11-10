@@ -68,7 +68,7 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     private String okpo;
 
     @Lob
-    @Column(name = "comments", length = 1024)
+    @Column(name = "comments", length = 4096)
     private String comments;
 
     @Column(name = "kpp")

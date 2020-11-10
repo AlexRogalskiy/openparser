@@ -42,9 +42,9 @@ spring:
       names: catalogDataLoaderJob
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: ${DB_URL:jdbc:hsqldb:file:db/catalogdb}
-    #url: jdbc:hsqldb:hsql://localhost:9001/catalogdb
-    driver-class-name: ${DB_DRIVER:org.hsqldb.jdbc.JDBCDriver}
+    url: ${DB_URL:jdbc:p6spy:hsqldb:file:db/catalogdb}
+    #url: jdbc:p6spy:hsqldb:hsql://localhost:9001/catalogdb
+    driver-class-name: ${DB_DRIVER:com.p6spy.engine.spy.P6SpyDriver}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:}
     sql-script-encoding: UTF-8
@@ -59,7 +59,7 @@ spring:
       transaction-isolation: TRANSACTION_READ_COMMITTED
       isolate-internal-queries: true
       connection-test-query: SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
-      driver-class-name: ${DB_DRIVER:org.hsqldb.jdbc.JDBCDriver}
+      driver-class-name: ${DB_DRIVER:com.p6spy.engine.spy.P6SpyDriver}
       allow-pool-suspension: true
       auto-commit: true
   jpa:

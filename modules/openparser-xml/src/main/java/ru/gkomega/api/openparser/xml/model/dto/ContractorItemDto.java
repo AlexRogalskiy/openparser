@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import ru.gkomega.api.openparser.commons.annotation.Guid;
 import ru.gkomega.api.openparser.commons.annotation.Inn;
 import ru.gkomega.api.openparser.commons.annotation.Kpp;
 import ru.gkomega.api.openparser.commons.annotation.NullOrNotEmpty;
@@ -15,7 +16,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Data
@@ -81,20 +81,25 @@ public class ContractorItemDto implements Serializable {
         @XStreamAlias("НаименованиеПолное")
         private String fullName;
 
+        @Guid
         @XStreamAlias("ОсновнойБанковскийСчет_Key")
-        private Optional<UUID> bankAccountKey;
+        private String bankAccountKey;
 
+        @Guid
         @XStreamAlias("Ответственный_Key")
-        private Optional<UUID> responsibilityKey;
+        private String responsibilityKey;
 
+        @Guid
         @XStreamAlias("РегистрационныйНомер")
-        private Optional<UUID> registeredNumber;
+        private String registeredNumber;
 
+        @Guid
         @XStreamAlias("ФизЛицо_Key")
-        private Optional<UUID> fizKey;
+        private String fizKey;
 
+        @Guid
         @XStreamAlias("ЮрФизЛицо")
-        private Optional<UUID> jurFizKey;
+        private String jurFizKey;
 
         @XStreamAlias("сфпCoMagicID")
         private String magicId;
