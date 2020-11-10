@@ -34,6 +34,21 @@ spring:
         core-size: 10
         max-size: 20
         queue-capacity: 100000
+  devtools:
+    add-properties: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+    log-resolved-exception: true
+    locale-resolver: FIXED
+    async:
+      # 1 hour
+      request-timeout: 3600000
+  resources:
+    add-mappings: true
+    chain:
+      strategy:
+        content:
+          enabled: true
   batch:
     initialize-schema: ALWAYS
     table-prefix: "batch_"
@@ -98,6 +113,58 @@ spring:
     hibernate:
       ddl-auto: create-drop
       use-new-id-generator-mappings: false
+
+management:
+  info:
+    build:
+      enabled: false
+    git:
+      mode: FULL
+  endpoint:
+    beans:
+      cache:
+        time-to-live: 30s
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
+      show-components: ALWAYS
+      cache:
+        time-to-live: 30s
+  endpoints:
+    web:
+      exposure:
+        include: [ "module", "health", "info", "metrics", "bindings", "beans", "env", "loggers", "streamsbindings", "threaddump", "httptrace", "mappings" ]
+      base-path: /actuator
+      path-mapping:
+        info: status
+  metrics:
+    tags:
+      region: ${spring.application.region:default}
+      type: ${spring.application.type:openparser}
+      application: ${spring.application.name}
+      environment: ${spring.profiles}
+      simple:
+        enabled: true
+        mode: STEP
+    enable:
+      jvm: false
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+      client:
+        max-uri-tags: 5
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+      slo:
+        http:
+          server:
+            requests: 20ms,50ms
 
 logging:
   file:

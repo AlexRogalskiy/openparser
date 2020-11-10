@@ -26,7 +26,7 @@ public class BatchTests {
     @Test
     public void testSampleJob() throws Exception {
         final JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
-        jobParametersBuilder.addString("file_path", "src/test/resources/sample.txt");
+        jobParametersBuilder.addString("file_path", "src/test/resources/data/sample.txt");
         // We add a dummy value to make job params unique, or else spring batch
         // will only run it the first time
         jobParametersBuilder.addDate("dummy", new Date());

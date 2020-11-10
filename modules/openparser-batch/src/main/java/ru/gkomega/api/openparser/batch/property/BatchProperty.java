@@ -4,11 +4,13 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Role;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -31,6 +33,8 @@ public class BatchProperty {
     /**
      * Configures the automatic registration of job configurations.
      */
+    @Valid
+    @NestedConfigurationProperty
     @NotNull(message = "{property.batch.config.notNull}")
     private JobConfigurationProperty config = new JobConfigurationProperty();
 
@@ -48,13 +52,13 @@ public class BatchProperty {
         /**
          * Location in the classpath where Spring Batch job definitions in XML are picked up.
          */
-        @NotBlank(message = "{property.batch.path-xml.notBlank}")
+        @NotBlank(message = "{property.batch.config.path-xml.notBlank}")
         private String pathXml = "classpath*:/META-INF/spring/batch/jobs/*.xml";
 
         /**
          * Package where Spring Batch job definitions in JavaConfig are picked up.
          */
-        @NotBlank(message = "{property.batch.base-package.notBlank}")
+        @NotBlank(message = "{property.batch.config.base-package.notBlank}")
         private String packageJavaConfig = "spring.batch.jobs";
     }
 

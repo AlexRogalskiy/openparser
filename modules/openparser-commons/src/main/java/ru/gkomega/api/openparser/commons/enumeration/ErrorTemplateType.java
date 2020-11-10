@@ -18,7 +18,8 @@ public enum ErrorTemplateType implements ErrorTemplate {
      * common message templates
      */
     INVALID_DATA("error-0020", "error.data.invalid"),
-    INVALID_CONFIGURATION("error-0030", "error.configuration.invalid");
+    INVALID_CONFIGURATION("error-0030", "error.configuration.invalid"),
+    SERVICE_OPERATION_ERROR("error-0040", "error.service.operation.invalid");
 
     /**
      * Default {@link String} error code
