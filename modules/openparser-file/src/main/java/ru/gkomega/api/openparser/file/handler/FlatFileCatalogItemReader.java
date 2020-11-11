@@ -13,6 +13,8 @@ import ru.gkomega.api.openparser.file.model.CustomerCreditDto;
 
 import javax.annotation.PostConstruct;
 
+import static org.apache.commons.lang3.ArrayUtils.toArray;
+
 @RequiredArgsConstructor
 public class FlatFileCatalogItemReader extends FlatFileItemReader<CustomerCreditDto> {
 
@@ -36,6 +38,7 @@ public class FlatFileCatalogItemReader extends FlatFileItemReader<CustomerCredit
         defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
 
+        this.setComments(toArray("#"));
         this.setLineMapper(defaultLineMapper);
     }
 }

@@ -1,6 +1,7 @@
 package ru.gkomega.api.openparser.file.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -10,6 +11,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.database.HibernateItemWriter;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -56,6 +58,7 @@ public class FileBatchConfiguration {
      */
     public static final String DATA_FILE_READER_BEAN_NAME = "fileDataReader";
     public static final String DATA_FILE_WRITER_BEAN_NAME = "fileDataWriter";
+    public static final String DATA_DB_WRITER_BEAN_NAME = "databaseDataWriter";
     public static final String DATA_FORMATTED_FILE_WRITER_BEAN_NAME = "formattedFileDataWriter";
     public static final String DATA_FILE_MULTI_READER_BEAN_NAME = "fileMultiDataReader";
     public static final String DATA_FILE_MULTI_WRITER_BEAN_NAME = "fileMultiDataWriter";
@@ -141,6 +144,14 @@ public class FileBatchConfiguration {
             " INSERT INTO contact_info( ref_key, line_number, contact_type, view_key, phone, country, region, city, address, domain_name, view_list_key, active_at )" +
                 " VALUES ( :refKey , :lineNumber, :contactType, :viewKey, :phone, :country, :region, :city, :address, :domainName, :viewListKey, :activeAt ) ");
         return jdbcBatchItemWriter.build();
+    }
+
+    @Bean(DATA_DB_WRITER_BEAN_NAME)
+    @StepScope
+    public ItemWriter<CustomerCreditDto> itemWriter(final SessionFactory sessionFactory) {
+        final HibernateItemWriter<CustomerCreditDto> itemWriter = new HibernateItemWriter<>();
+        itemWriter.setSessionFactory(sessionFactory);
+        return itemWriter;
     }
 
     @Bean(JOB_CATALOG_DATA_LOADER_BEAN_NAME)

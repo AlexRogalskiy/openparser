@@ -1,5 +1,6 @@
 package ru.gkomega.api.openparser.db.configuration;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
@@ -17,12 +18,16 @@ import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.gkomega.api.openparser.batch.handler.CustomJobListener;
 import ru.gkomega.api.openparser.batch.property.BatchProperty;
@@ -32,6 +37,7 @@ import ru.gkomega.api.openparser.db.model.CustomerCreditDto;
 import ru.gkomega.api.openparser.db.model.CustomerCreditDtoRowMapper;
 import ru.gkomega.api.openparser.db.property.DbResourceProperty;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -205,5 +211,33 @@ public class DbBatchConfiguration {
             .tasklet(tasklet)
             .transactionManager(platformTransactionManager)
             .build();
+    }
+
+    @Bean
+    public ResourceDatabasePopulator resourceDatabasePopulator(final DbResourceProperty resourceProperty) {
+        final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        databasePopulator.setScripts(resourceProperty.getScripts());
+        return databasePopulator;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(@Qualifier("dataSource") final DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Configuration
+    @RequiredArgsConstructor
+    @ConditionalOnProperty(prefix = DbResourceProperty.PROPERTY_PREFIX, value = "scripts")
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    @Description("OpenParser Database Population configuration")
+    public static class DbPopulationConfiguration {
+
+        private final ResourceDatabasePopulator resourceDatabasePopulator;
+        private final DataSource dataSource;
+
+        @PostConstruct
+        private void init() {
+            DatabasePopulatorUtils.execute(this.resourceDatabasePopulator, this.dataSource);
+        }
     }
 }
