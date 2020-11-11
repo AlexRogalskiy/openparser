@@ -56,9 +56,10 @@ public class FileBatchConfiguration {
      */
     public static final String DATA_FILE_READER_BEAN_NAME = "fileDataReader";
     public static final String DATA_FILE_WRITER_BEAN_NAME = "fileDataWriter";
+    public static final String DATA_FORMATTED_FILE_WRITER_BEAN_NAME = "formattedFileDataWriter";
     public static final String DATA_FILE_MULTI_READER_BEAN_NAME = "fileMultiDataReader";
     public static final String DATA_FILE_MULTI_WRITER_BEAN_NAME = "fileMultiDataWriter";
-    public static final String DATA_BATCH_WRITER_BEAN_NAME = "databaseBatchDataWriter";
+    public static final String DATA_DB_BATCH_WRITER_BEAN_NAME = "databaseBatchDataWriter";
 
     public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "dataLoaderJob";
 
@@ -119,7 +120,18 @@ public class FileBatchConfiguration {
             .build();
     }
 
-    @Bean(DATA_BATCH_WRITER_BEAN_NAME)
+    @Bean(DATA_FORMATTED_FILE_WRITER_BEAN_NAME)
+    public FlatFileItemWriter<CustomerCreditDto> formattedItemWriter() {
+        return new FlatFileItemWriterBuilder<CustomerCreditDto>()
+            .name("customerCreditFormattedWriter")
+            .resource(new ClassPathResource("data/output.txt"))
+            .formatted()
+            .format("%-9s%-2.0f")
+            .names(new String[]{"name", "credit"})
+            .build();
+    }
+
+    @Bean(DATA_DB_BATCH_WRITER_BEAN_NAME)
     public JdbcBatchItemWriter<CustomerCreditDto> databaseCatalogDataBatchWriter(@Qualifier("dataSource") final DataSource dataSource) {
         final JdbcBatchItemWriterBuilder<CustomerCreditDto> jdbcBatchItemWriter = new JdbcBatchItemWriterBuilder<>();
         jdbcBatchItemWriter.assertUpdates(true);
@@ -160,7 +172,7 @@ public class FileBatchConfiguration {
                              final StepBuilderFactory stepBuilderFactory,
                              final PlatformTransactionManager platformTransactionManager,
                              @Qualifier(DATA_FILE_READER_BEAN_NAME) final ItemReader<CustomerCreditDto> itemReader,
-                             @Qualifier(DATA_BATCH_WRITER_BEAN_NAME) final JdbcBatchItemWriter<CustomerCreditDto> itemWriter) {
+                             @Qualifier(DATA_DB_BATCH_WRITER_BEAN_NAME) final JdbcBatchItemWriter<CustomerCreditDto> itemWriter) {
         return stepBuilderFactory.get(STEP_LOAD_DATA_BEAN_NAME)
             .<CustomerCreditDto, CustomerCreditDto>chunk(batchProperty.getChunkSize())
             .reader(itemReader)

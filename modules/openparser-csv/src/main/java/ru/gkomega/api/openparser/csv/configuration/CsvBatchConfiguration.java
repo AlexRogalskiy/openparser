@@ -60,7 +60,7 @@ public class CsvBatchConfiguration {
      */
     public static final String DATA_CSV_READER_BEAN_NAME = "csvFileDataReader";
     public static final String DATA_CSV_MULTI_READER_BEAN_NAME = "csvFileMultiDataReader";
-    public static final String DATA_BATCH_WRITER_BEAN_NAME = "databaseBatchDataWriter";
+    public static final String DATA_DB_BATCH_WRITER_BEAN_NAME = "databaseBatchDataWriter";
 
     public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "dataLoaderJob";
 
@@ -118,7 +118,7 @@ public class CsvBatchConfiguration {
             .build();
     }
 
-    @Bean(DATA_BATCH_WRITER_BEAN_NAME)
+    @Bean(DATA_DB_BATCH_WRITER_BEAN_NAME)
     public JdbcBatchItemWriter<CatalogItemDto> databaseCatalogDataBatchWriter(@Qualifier("dataSource") final DataSource dataSource) {
         final JdbcBatchItemWriterBuilder<CatalogItemDto> jdbcBatchItemWriter = new JdbcBatchItemWriterBuilder<>();
         jdbcBatchItemWriter.assertUpdates(true);
@@ -159,7 +159,7 @@ public class CsvBatchConfiguration {
                              final StepBuilderFactory stepBuilderFactory,
                              final PlatformTransactionManager platformTransactionManager,
                              @Qualifier(DATA_CSV_READER_BEAN_NAME) final ItemReader<CatalogItemDto> itemReader,
-                             @Qualifier(DATA_BATCH_WRITER_BEAN_NAME) final JdbcBatchItemWriter<CatalogItemDto> itemWriter) {
+                             @Qualifier(DATA_DB_BATCH_WRITER_BEAN_NAME) final JdbcBatchItemWriter<CatalogItemDto> itemWriter) {
         return stepBuilderFactory.get(STEP_LOAD_DATA_BEAN_NAME)
             .<CatalogItemDto, CatalogItemDto>chunk(batchProperty.getChunkSize())
             .reader(itemReader)
