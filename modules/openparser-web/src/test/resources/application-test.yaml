@@ -21,6 +21,21 @@ spring:
         core-size: 10
         max-size: 20
         queue-capacity: 100000
+  devtools:
+    add-properties: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+    log-resolved-exception: true
+    locale-resolver: FIXED
+    async:
+      # 1 hour
+      request-timeout: 3600000
+  resources:
+    add-mappings: true
+    chain:
+      strategy:
+        content:
+          enabled: true
 
 logging:
   file:
