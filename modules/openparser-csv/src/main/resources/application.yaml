@@ -178,7 +178,7 @@ openparser:
   batch:
     resources:
       csv:
-        path-pattern: "data/template.json"
+        path-pattern: "data/template.csv"
   xstream:
     settings:
       csv:
