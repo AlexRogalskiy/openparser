@@ -81,9 +81,12 @@
         <module>modules/openparser-batch</module>
         <module>modules/openparser-commons</module>
         <module>modules/openparser-csv</module>
+        <module>modules/openparser-db</module>
         <module>modules/openparser-executor</module>
+        <module>modules/openparser-file</module>
         <module>modules/openparser-xml</module>
         <module>modules/openparser-xstream</module>
+        <module>modules/openparser-web</module>
         <module>modules/openparser-tests</module>
     </modules>
 

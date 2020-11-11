@@ -58,7 +58,7 @@ spring:
     table-prefix: "batch_"
     job:
       enabled: true
-      names: catalogDataLoaderJob
+      names: dataLoaderJob
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: ${DB_URL:jdbc:p6spy:hsqldb:file:db/catalogdb}

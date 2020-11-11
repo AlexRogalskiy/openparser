@@ -57,9 +57,18 @@ OpenParser module dependencies:
 - [**OpenParser Csv**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-csv)  
   `openparser-csv` - Library to work with Csv API.
 
+- [**OpenParser Database**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-db)  
+  `openparser-db` - Library to work with Database API.
+
 - [**OpenParser Executor**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-executor)  
   `openparser-processor` - Library to work with Executor API.
-  
+
+- [**OpenParser File**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-file)  
+  `openparser-file` - Library to work with File API.
+
+- [**OpenParser Web**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-web)  
+  `openparser-web` - Library to work with Web API.
+
 - [**OpenParser Xml**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-xml)  
   `openparser-processor` - Library to work with Xml API.
 

@@ -1,0 +1,27 @@
+# OpenParser File test configuration
+---
+spring:
+  output:
+    ansi:
+      enabled: NEVER
+  application:
+    name: "@project.artifactId@"
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    # 1 hour
+    cache-duration: 3600
+  main:
+    log-startup-info: true
+    allow-bean-definition-overriding: true
+  task:
+    execution:
+      thread-name-prefix: test
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100000
+
+logging:
+  file:
+    name: ${spring.application.name}

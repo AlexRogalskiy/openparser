@@ -59,9 +59,10 @@ public class CsvBatchConfiguration {
      * Default bean naming conventions
      */
     public static final String DATA_CSV_READER_BEAN_NAME = "csvFileDataReader";
+    public static final String DATA_CSV_MULTI_READER_BEAN_NAME = "csvFileMultiDataReader";
     public static final String DATA_BATCH_WRITER_BEAN_NAME = "databaseBatchDataWriter";
 
-    public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "catalogDataLoaderJob";
+    public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "dataLoaderJob";
 
     public static final String STEP_LOAD_DATA_BEAN_NAME = "LoadCatalogItemsFromFile";
     public static final String STEP_CALCULATE_STATISTICS_BEAN_NAME = "CalculateCatalogItemsStatistics";
@@ -81,7 +82,7 @@ public class CsvBatchConfiguration {
             .build();
     }
 
-    @Bean(DATA_CSV_READER_BEAN_NAME)
+    @Bean(DATA_CSV_MULTI_READER_BEAN_NAME)
     @StepScope
     public ItemReader<CatalogItemDto> csvCatalogDataReader(final CsvResourceProperty csvResourceProperty) {
         return new MultiResourceReader<>(csvResourceProperty, new CsvFileCatalogItemReader(csvResourceProperty));

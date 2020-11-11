@@ -56,7 +56,7 @@ public class XmlBatchConfiguration {
     public static final String DATA_XML_READER_BEAN_NAME = "xmlFileDataReader";
     public static final String DATA_XML_MULTI_READER_BEAN_NAME = "xmlFileMultiDataReader";
 
-    public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "catalogDataLoaderJob";
+    public static final String JOB_CATALOG_DATA_LOADER_BEAN_NAME = "dataLoaderJob";
 
     public static final String STEP_LOAD_DATA_BEAN_NAME = "LoadCatalogItemsFromFile";
     public static final String STEP_CALCULATE_STATISTICS_BEAN_NAME = "CalculateCatalogItemsStatistics";

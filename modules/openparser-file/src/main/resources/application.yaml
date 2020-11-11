@@ -1,0 +1,185 @@
+# OpenParser File configuration
+---
+server:
+  port: 8085
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    min-response-size: 1024
+  forward-headers-strategy: FRAMEWORK
+  error:
+    path: /error
+    include-stacktrace: NEVER
+    whitelabel:
+      enabled: false
+
+spring:
+  output:
+    ansi:
+      enabled: NEVER
+  application:
+    name: "@project.artifactId@"
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    # 1 hour
+    cache-duration: 3600
+  main:
+    log-startup-info: true
+  task:
+    execution:
+      thread-name-prefix: openparser-file
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100000
+  devtools:
+    add-properties: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+    log-resolved-exception: true
+    locale-resolver: FIXED
+    mvc:
+      throw-exception-if-no-handler-found: true
+      log-resolved-exception: true
+      locale-resolver: FIXED
+      async:
+        # 1 hour
+        request-timeout: 3600000
+  resources:
+    add-mappings: true
+    chain:
+      strategy:
+        content:
+          enabled: true
+  batch:
+    initialize-schema: always
+    table-prefix: "batch_"
+    job:
+      enabled: true
+      names: dataLoaderJob
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DB_URL:jdbc:p6spy:hsqldb:file:db/catalogdb}
+    #url: jdbc:p6spy:hsqldb:hsql://localhost:9001/catalogdb
+    driver-class-name: ${DB_DRIVER:com.p6spy.engine.spy.P6SpyDriver}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    sql-script-encoding: UTF-8
+    initialization-mode: ALWAYS
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      pool-name: OpenParser-File-HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      isolate-internal-queries: true
+      connection-test-query: SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+      driver-class-name: ${DB_DRIVER:com.p6spy.engine.spy.P6SpyDriver}
+      allow-pool-suspension: true
+      auto-commit: true
+  jpa:
+    database: HSQL
+    database-platform: ${DB_PLATFORM:org.hibernate.dialect.HSQLDialect}
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: ${DB_PLATFORM:org.hibernate.dialect.HSQLDialect}
+        ddl-auto: create-drop
+        order_inserts: false
+        order_updates: false
+        show-sql: true
+        format-sql: true
+        use-sql-comments: true
+        generate_statistics: false
+        enable_lazy_load_no_trans: true
+        globally_quoted_identifiers: true
+        jdbc.lob.non-contextual-creation: true
+        multi-tenant-connection-provider: true
+        bytecode.use_reflection_optimizer: false
+        validator:
+          apply_to_ddl: true
+          autoregister_listeners: true
+        transaction:
+          flush_before_completion: true
+          auto_close_session: false
+        cache:
+          use_query_cache: false
+          use_second_level_cache: false
+          use_structured_entries: false
+        jdbc:
+          fetch_size: 20
+          batch_size: 15
+    hibernate:
+      ddl-auto: create-drop
+      use-new-id-generator-mappings: false
+
+management:
+  info:
+    build:
+      enabled: false
+    git:
+      mode: FULL
+  endpoint:
+    beans:
+      cache:
+        time-to-live: 30s
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
+      show-components: ALWAYS
+      cache:
+        time-to-live: 30s
+  endpoints:
+    web:
+      exposure:
+        include: [ "module", "health", "info", "metrics", "bindings", "beans", "env", "loggers", "streamsbindings", "threaddump", "httptrace", "mappings" ]
+      base-path: /actuator
+      path-mapping:
+        info: status
+  metrics:
+    tags:
+      region: ${spring.application.region:default}
+      type: ${spring.application.type:openparser}
+      application: ${spring.application.name}
+      environment: ${spring.profiles}
+      simple:
+        enabled: true
+        mode: STEP
+    enable:
+      jvm: false
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+      client:
+        max-uri-tags: 5
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+      slo:
+        http:
+          server:
+            requests: 20ms,50ms
+
+logging:
+  file:
+    name: ${spring.application.name}
+
+openparser:
+  batch:
+    resources:
+      file:
+        path-pattern: "data/template.txt"
+  xstream:
+    settings:
+      file:
+        stream-driver: com.thoughtworks.xstream.io.xml.StaxDriver
