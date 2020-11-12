@@ -5,17 +5,18 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.*;
 
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ContractorItems")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -103,7 +104,7 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
 
     @BatchSize(size = 10)
     @JsonBackReference
-    @OneToMany(mappedBy = "contractorItem", cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "contractorItem", targetEntity = ContactItemEntity.class, cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Column(name = "contactItems")
     @Fetch(FetchMode.JOIN)
     @LazyCollection(LazyCollectionOption.TRUE)
@@ -111,5 +112,21 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     @NotFound(action = NotFoundAction.IGNORE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<ContactItemEntity> contactItems;
+    private List<ContactItemEntity> contactItems = new ArrayList<>();
+
+    public void setContactItems(final List<ContactItemEntity> contactItems) {
+        Optional.ofNullable(contactItems)
+            .orElseGet(Collections::emptyList)
+            .forEach(this::addContactItem);
+    }
+
+    public void addContactItem(final ContactItemEntity contactItemEntity) {
+        this.contactItems.add(contactItemEntity);
+        contactItemEntity.setContractorItem(this);
+    }
+
+    public void removeContactItem(final ContactItemEntity contactItemEntity) {
+        //contactItemEntity.setContractorItem(null);
+        this.contactItems.remove(contactItemEntity);
+    }
 }

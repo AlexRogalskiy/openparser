@@ -26,13 +26,6 @@ public class CatalogItemWriter implements ItemWriter<CatalogItemEntity> {
         log.info(">>> Saving catalog item: {}", itemEntity);
 
         try {
-            itemEntity.getContractorItemList().forEach(item -> {
-                item.setCatalogItem(itemEntity);
-                item.getContactItems().forEach(item2 -> {
-                    item2.setContractorItem(item);
-                });
-            });
-
             this.entityDaoService.update(itemEntity);
         } catch (Exception ex) {
             throw new PersistenceException("Could not persist catalog item", ex);

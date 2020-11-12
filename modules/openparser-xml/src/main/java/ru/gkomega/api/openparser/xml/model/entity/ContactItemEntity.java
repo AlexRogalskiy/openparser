@@ -15,6 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ContactItems")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.*;
 
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "CatalogItems")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,7 +49,7 @@ public class CatalogItemEntity extends BaseItemEntity<UUID> {
 
     @BatchSize(size = 10)
     @JsonBackReference
-    @OneToMany(mappedBy = "catalogItem", cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "catalogItem", targetEntity = ContractorItemEntity.class, cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Column(name = "contractorItems")
     @Fetch(FetchMode.JOIN)
     @LazyCollection(LazyCollectionOption.TRUE)
@@ -56,5 +57,21 @@ public class CatalogItemEntity extends BaseItemEntity<UUID> {
     @NotFound(action = NotFoundAction.IGNORE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<ContractorItemEntity> contractorItemList;
+    private List<ContractorItemEntity> contractorItems = new ArrayList<>();
+
+    public void setContractorItems(final List<ContractorItemEntity> contractorItems) {
+        Optional.ofNullable(contractorItems)
+            .orElseGet(Collections::emptyList)
+            .forEach(this::addContractorItem);
+    }
+
+    public void addContractorItem(final ContractorItemEntity contractorItemEntity) {
+        this.contractorItems.add(contractorItemEntity);
+        contractorItemEntity.setCatalogItem(this);
+    }
+
+    public void removeContractorItem(final ContractorItemEntity contractorItemEntity) {
+        //contractorItemEntity.setCatalogItem(null);
+        this.contractorItems.remove(contractorItemEntity);
+    }
 }

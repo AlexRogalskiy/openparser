@@ -22,6 +22,6 @@ public class CatalogItemDtoToEntityPropertyMap extends PropertyMap<CatalogItemDt
         this.map(this.source.getSummary()).setSummary(null);
         this.map(this.source.getTitle()).setTitle(null);
         this.map(this.source.getUpdatedAt()).setUpdatedAt(null);
-        this.map(this.source.getContractorItemList()).setContractorItemList(null);
+        this.map(this.source.getContractorItemList()).setContractorItems(null);
     }
 }
