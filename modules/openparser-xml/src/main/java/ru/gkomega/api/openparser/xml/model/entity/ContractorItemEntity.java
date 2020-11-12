@@ -115,6 +115,7 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     private List<ContactItemEntity> contactItems = new ArrayList<>();
 
     public void setContactItems(final List<ContactItemEntity> contactItems) {
+        this.contactItems.clear();
         Optional.ofNullable(contactItems)
             .orElseGet(Collections::emptyList)
             .forEach(this::addContactItem);
@@ -126,7 +127,6 @@ public class ContractorItemEntity extends BaseItemEntity<UUID> {
     }
 
     public void removeContactItem(final ContactItemEntity contactItemEntity) {
-        //contactItemEntity.setContractorItem(null);
         this.contactItems.remove(contactItemEntity);
     }
 }

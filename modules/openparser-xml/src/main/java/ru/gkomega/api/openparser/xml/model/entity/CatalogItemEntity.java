@@ -60,6 +60,7 @@ public class CatalogItemEntity extends BaseItemEntity<UUID> {
     private List<ContractorItemEntity> contractorItems = new ArrayList<>();
 
     public void setContractorItems(final List<ContractorItemEntity> contractorItems) {
+        this.contractorItems.clear();
         Optional.ofNullable(contractorItems)
             .orElseGet(Collections::emptyList)
             .forEach(this::addContractorItem);
@@ -71,7 +72,6 @@ public class CatalogItemEntity extends BaseItemEntity<UUID> {
     }
 
     public void removeContractorItem(final ContractorItemEntity contractorItemEntity) {
-        //contractorItemEntity.setCatalogItem(null);
         this.contractorItems.remove(contractorItemEntity);
     }
 }
