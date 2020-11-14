@@ -11,6 +11,7 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.builder.MultiResourceItemReaderBuilder;
 import org.springframework.batch.item.support.SynchronizedItemStreamReader;
+import org.springframework.batch.item.validator.ValidationException;
 import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -23,6 +24,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -140,6 +142,11 @@ public class XmlBatchConfiguration {
             .reader(itemReader)
             .processor(itemProcessor)
             .writer(itemWriter)
+            .faultTolerant()
+            .retryLimit(3)
+            .retry(DeadlockLoserDataAccessException.class)
+            .noRollback(ValidationException.class)
+            .readerIsTransactionalQueue()
             .taskExecutor(taskExecutor)
             .transactionManager(platformTransactionManager)
             .build();

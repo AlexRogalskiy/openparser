@@ -6,6 +6,11 @@ import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.ExecutionContextSerializer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
+import org.springframework.batch.core.step.job.DefaultJobParametersExtractor;
+import org.springframework.batch.core.step.job.JobParametersExtractor;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.support.CompositeItemWriter;
+import org.springframework.batch.item.support.builder.CompositeItemWriterBuilder;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -22,6 +27,7 @@ import ru.gkomega.api.openparser.batch.logging.LoggingListener;
 import ru.gkomega.api.openparser.batch.property.BatchProperty;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 @Import({LoggingListener.class, CustomJobListener.class})
@@ -83,5 +89,28 @@ public abstract class BatchConfiguration {
         jobLauncher.setTaskExecutor(taskExecutor);
         jobLauncher.afterPropertiesSet();
         return jobLauncher;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @Description("Job parameters extractor bean")
+    public JobParametersExtractor jobParametersExtractor() {
+        final DefaultJobParametersExtractor extractor = new DefaultJobParametersExtractor();
+        extractor.setKeys(new String[]{"input.file"});
+        return extractor;
+    }
+
+    /**
+     * Returns CompositeItemWriter implements ItemStream so this isn't
+     * necessary, but used for an example.
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @Description("Composite item writer bean")
+    @SuppressWarnings("unchecked")
+    public <T> CompositeItemWriter<T> compositeItemWriter(final List<ItemWriter<T>> itemWriters) {
+        return new CompositeItemWriterBuilder<>()
+            .delegates(itemWriters.toArray(new ItemWriter[0]))
+            .build();
     }
 }
