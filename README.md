@@ -66,6 +66,9 @@ OpenParser module dependencies:
 - [**OpenParser File**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-file)  
   `openparser-file` - Library to work with File API.
 
+- [**OpenParser Solr**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-solr)  
+  `openparser-solr` - Library to work with Solr API.
+
 - [**OpenParser Web**](https://github.com/AlexRogalskiy/openparser/tree/master/modules/openparser-web)  
   `openparser-web` - Library to work with Web API.
 

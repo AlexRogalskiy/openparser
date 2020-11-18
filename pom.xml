@@ -84,6 +84,7 @@
         <module>modules/openparser-db</module>
         <module>modules/openparser-executor</module>
         <module>modules/openparser-file</module>
+        <module>modules/openparser-solr</module>
         <module>modules/openparser-xml</module>
         <module>modules/openparser-xstream</module>
         <module>modules/openparser-web</module>

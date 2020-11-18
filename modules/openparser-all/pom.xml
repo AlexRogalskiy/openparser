@@ -61,6 +61,12 @@
         </dependency>
         <dependency>
             <groupId>ru.gkomega.api</groupId>
+            <artifactId>openparser-solr</artifactId>
+            <version>${ru.gkomega.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.gkomega.api</groupId>
             <artifactId>openparser-web</artifactId>
             <version>${ru.gkomega.api.version}</version>
             <scope>compile</scope>
