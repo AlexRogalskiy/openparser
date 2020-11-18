@@ -34,7 +34,7 @@ import static ru.gkomega.api.openparser.executor.configuration.TaskExecutorConfi
 @Import(TaskExecutionAutoConfiguration.class)
 @ConditionalOnProperty(prefix = "spring.task.execution", value = "enabled", havingValue = "true", matchIfMissing = true)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@Description("OpenParser Executor configuration")
+@Description("OpenParser Task Executor configuration")
 public abstract class TaskExecutorConfiguration {
     /**
      * Default executor bean naming convention

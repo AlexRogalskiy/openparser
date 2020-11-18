@@ -53,17 +53,6 @@ public class FileItemWriterException extends ItemWriterException {
     /**
      * Returns {@link FileItemWriterException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link FileItemWriterException}
-     */
-    @NonNull
-    public static FileItemWriterException throwInvalidOperation(final String message) {
-        throw new FileItemWriterException(message);
-    }
-
-    /**
-     * Returns {@link FileItemWriterException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link FileItemWriterException}
      */

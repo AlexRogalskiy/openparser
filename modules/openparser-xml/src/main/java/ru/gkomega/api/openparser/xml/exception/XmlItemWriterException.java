@@ -53,17 +53,6 @@ public class XmlItemWriterException extends ItemWriterException {
     /**
      * Returns {@link XmlItemWriterException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link XmlItemWriterException}
-     */
-    @NonNull
-    public static XmlItemWriterException throwInvalidOperation(final String message) {
-        throw new XmlItemWriterException(message);
-    }
-
-    /**
-     * Returns {@link XmlItemWriterException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link XmlItemWriterException}
      */

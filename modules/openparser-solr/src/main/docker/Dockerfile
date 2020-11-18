@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.version="1.0"
 ARG JAR_FILE
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} /opt/app/ru.gkomega.api-openparser-xml.jar
+ADD ${JAR_FILE} /opt/app/ru.gkomega.api-openparser-solr.jar
 ADD ./entrypoint.sh /opt/app/entrypoint.sh
 
 # Set workdir inside container
@@ -34,4 +34,4 @@ ENV TERM xterm
 
 # Run service process
 ENTRYPOINT [ "./entrypoint.sh" ]
-CMD ["OpenParserXml container started"]
+CMD ["OpenParserSolr container started"]

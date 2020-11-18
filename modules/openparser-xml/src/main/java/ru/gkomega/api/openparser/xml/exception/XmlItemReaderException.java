@@ -53,17 +53,6 @@ public class XmlItemReaderException extends ItemReaderException {
     /**
      * Returns {@link XmlItemReaderException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link XmlItemReaderException}
-     */
-    @NonNull
-    public static XmlItemReaderException throwInvalidOperation(final String message) {
-        throw new XmlItemReaderException(message);
-    }
-
-    /**
-     * Returns {@link XmlItemReaderException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link XmlItemReaderException}
      */

@@ -53,17 +53,6 @@ public class CsvItemReaderException extends ItemReaderException {
     /**
      * Returns {@link CsvItemReaderException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link CsvItemReaderException}
-     */
-    @NonNull
-    public static CsvItemReaderException throwInvalidOperation(final String message) {
-        throw new CsvItemReaderException(message);
-    }
-
-    /**
-     * Returns {@link CsvItemReaderException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link CsvItemReaderException}
      */

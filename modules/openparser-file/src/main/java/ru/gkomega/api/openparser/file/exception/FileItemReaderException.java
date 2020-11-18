@@ -53,17 +53,6 @@ public class FileItemReaderException extends ItemReaderException {
     /**
      * Returns {@link FileItemReaderException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link FileItemReaderException}
-     */
-    @NonNull
-    public static FileItemReaderException throwInvalidOperation(final String message) {
-        throw new FileItemReaderException(message);
-    }
-
-    /**
-     * Returns {@link FileItemReaderException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link FileItemReaderException}
      */

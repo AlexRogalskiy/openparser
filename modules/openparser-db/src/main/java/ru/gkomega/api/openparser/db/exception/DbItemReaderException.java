@@ -53,17 +53,6 @@ public class DbItemReaderException extends ItemReaderException {
     /**
      * Returns {@link DbItemReaderException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link DbItemReaderException}
-     */
-    @NonNull
-    public static DbItemReaderException throwInvalidOperation(final String message) {
-        throw new DbItemReaderException(message);
-    }
-
-    /**
-     * Returns {@link DbItemReaderException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link DbItemReaderException}
      */

@@ -53,17 +53,6 @@ public class CsvItemWriterException extends ItemWriterException {
     /**
      * Returns {@link CsvItemWriterException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link CsvItemWriterException}
-     */
-    @NonNull
-    public static CsvItemWriterException throwInvalidOperation(final String message) {
-        throw new CsvItemWriterException(message);
-    }
-
-    /**
-     * Returns {@link CsvItemWriterException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link CsvItemWriterException}
      */

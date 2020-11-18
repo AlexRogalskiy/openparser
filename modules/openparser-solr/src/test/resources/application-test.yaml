@@ -1,0 +1,101 @@
+# OpenParser Solr test configuration
+---
+spring:
+  output:
+    ansi:
+      enabled: NEVER
+  application:
+    name: "@project.artifactId@"
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    # 1 hour
+    cache-duration: 3600
+  main:
+    log-startup-info: true
+    allow-bean-definition-overriding: true
+  task:
+    execution:
+      thread-name-prefix: test
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100000
+  batch:
+    initialize-schema: ALWAYS
+    table-prefix: "batch_"
+    job:
+      enabled: false
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:hsqldb:mem:catalogdb;
+    driver-class-name: ${DB_DRIVER:org.hsqldb.jdbc.JDBCDriver}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    sql-script-encoding: UTF-8
+    initialization-mode: ALWAYS
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      pool-name: OpenParser-Xml-HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      isolate-internal-queries: true
+      connection-test-query: SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+      driver-class-name: ${DB_DRIVER:org.hsqldb.jdbc.JDBCDriver}
+      allow-pool-suspension: true
+      auto-commit: true
+  jpa:
+    database: HSQL
+    database-platform: ${DB_PLATFORM:org.hibernate.dialect.HSQLDialect}
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: ${DB_PLATFORM:org.hibernate.dialect.HSQLDialect}
+        ddl-auto: create-drop
+        order_inserts: false
+        order_updates: false
+        show-sql: true
+        format-sql: true
+        use-sql-comments: true
+        generate_statistics: false
+        enable_lazy_load_no_trans: true
+        globally_quoted_identifiers: true
+        jdbc.lob.non-contextual-creation: true
+        multi-tenant-connection-provider: true
+        bytecode.use_reflection_optimizer: false
+        validator:
+          apply_to_ddl: true
+          autoregister_listeners: true
+        transaction:
+          flush_before_completion: true
+          auto_close_session: false
+        cache:
+          use_query_cache: false
+          use_second_level_cache: false
+          use_structured_entries: false
+        jdbc:
+          fetch_size: 20
+          batch_size: 15
+    hibernate:
+      ddl-auto: create-drop
+      use-new-id-generator-mappings: false
+
+logging:
+  file:
+    name: ${spring.application.name}
+
+openparser:
+  batch:
+    resources:
+      xml:
+        path-pattern: "data/template.xml"
+        root-elements:
+          - "entry"
+  xstream:
+    settings:
+      xml:
+        stream-driver: com.thoughtworks.xstream.io.xml.StaxDriver

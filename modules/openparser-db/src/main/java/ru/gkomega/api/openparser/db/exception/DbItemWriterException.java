@@ -53,17 +53,6 @@ public class DbItemWriterException extends ItemWriterException {
     /**
      * Returns {@link DbItemWriterException} by input parameters
      *
-     * @param message - initial input message {@link String}
-     * @return {@link DbItemWriterException}
-     */
-    @NonNull
-    public static DbItemWriterException throwInvalidOperation(final String message) {
-        throw new DbItemWriterException(message);
-    }
-
-    /**
-     * Returns {@link DbItemWriterException} by input parameters
-     *
      * @param args - initial input description {@link Object} arguments
      * @return {@link DbItemWriterException}
      */
