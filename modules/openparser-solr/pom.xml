@@ -243,7 +243,7 @@
                                 <artifactItem>
                                     <groupId>org.apache.solr</groupId>
                                     <artifactId>solr-cell</artifactId>
-                                    <version>7.2.1</version>
+                                    <version>7.7.3</version>
                                     <type>jar</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${solr.deps}</outputDirectory>
