@@ -20,7 +20,7 @@
     <properties>
         <p6spy.version>3.9.1</p6spy.version>
         <hikari.version>3.4.5</hikari.version>
-        <commonmark.version>0.15.2</commonmark.version>
+        <commonmark.version>0.17.0</commonmark.version>
         <tika.version>1.17</tika.version>
 
         <solr.deps>solr/libs</solr.deps>
