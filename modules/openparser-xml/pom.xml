@@ -18,7 +18,7 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <spring-oxm.version>5.3.6</spring-oxm.version>
+        <spring-oxm.version>5.3.7</spring-oxm.version>
         <xstream.version>1.4.16</xstream.version>
         <p6spy.version>3.9.1</p6spy.version>
         <hikari.version>3.4.5</hikari.version>
