@@ -18,7 +18,7 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <xstream.version>1.4.17</xstream.version>
+        <xstream.version>1.4.18</xstream.version>
 
         <ru.gkomega.api.version>0.1.0-SNAPSHOT</ru.gkomega.api.version>
     </properties>
