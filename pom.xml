@@ -134,7 +134,7 @@
         <junit-platform.version>1.9.1-SNAPSHOT</junit-platform.version>
         <mockito-junit-jupiter.version>3.12.4</mockito-junit-jupiter.version>
         <mockito.version>3.12.4</mockito.version>
-        <assertj.version>3.22.0</assertj.version>
+        <assertj.version>3.23.1</assertj.version>
         <hamcrest.version>2.2</hamcrest.version>
 
         <maven-plugin-os.version>1.7.0</maven-plugin-os.version>
