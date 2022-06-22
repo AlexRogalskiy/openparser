@@ -18,7 +18,7 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <spring-integration.version>5.5.12</spring-integration.version>
+        <spring-integration.version>5.5.13</spring-integration.version>
         <spring-batch-integration.version>4.3.6</spring-batch-integration.version>
 
         <ru.gkomega.api.version>0.1.0-SNAPSHOT</ru.gkomega.api.version>
