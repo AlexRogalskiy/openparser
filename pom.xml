@@ -144,7 +144,7 @@
         <maven-help-plugin.version>3.2.0</maven-help-plugin.version>
         <maven-build-helper-plugin.version>3.3.0</maven-build-helper-plugin.version>
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
-        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.0</maven-project-info-reports-plugin.version>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
