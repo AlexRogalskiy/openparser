@@ -18,7 +18,7 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <jettison.version>1.5.2</jettison.version>
+        <jettison.version>1.5.3</jettison.version>
         <p6spy.version>3.9.1</p6spy.version>
         <hikari.version>3.4.6-SNAPSHOT</hikari.version>
         <xstream.version>1.5.0-SNAPSHOT</xstream.version>
