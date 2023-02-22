@@ -19,7 +19,7 @@
 
     <properties>
         <spring-integration.version>5.5.16</spring-integration.version>
-        <spring-batch-integration.version>4.3.7</spring-batch-integration.version>
+        <spring-batch-integration.version>4.3.8</spring-batch-integration.version>
 
         <ru.gkomega.api.version>0.1.0-SNAPSHOT</ru.gkomega.api.version>
     </properties>
