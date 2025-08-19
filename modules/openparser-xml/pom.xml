@@ -21,7 +21,7 @@
         <spring-oxm.version>5.3.39</spring-oxm.version>
         <xstream.version>1.5.0-SNAPSHOT</xstream.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <hikari.version>3.4.6-SNAPSHOT</hikari.version>
+        <hikari.version>7.0.2</hikari.version>
         <modelmapper.version>2.4.5</modelmapper.version>
 
         <ru.gkomega.api.version>0.1.0-SNAPSHOT</ru.gkomega.api.version>
