@@ -138,7 +138,7 @@
         <hamcrest.version>2.2</hamcrest.version>
 
         <maven-plugin-os.version>1.7.1</maven-plugin-os.version>
-        <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
+        <maven-clean-plugin.version>4.0.0-beta-2</maven-clean-plugin.version>
         <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
         <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
         <maven-help-plugin.version>3.5.1</maven-help-plugin.version>
