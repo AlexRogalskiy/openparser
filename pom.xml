@@ -132,8 +132,8 @@
 
         <junit-jupiter.version>5.14.2</junit-jupiter.version>
         <junit-platform.version>1.14.2</junit-platform.version>
-        <mockito-junit-jupiter.version>3.12.4</mockito-junit-jupiter.version>
-        <mockito.version>3.12.4</mockito.version>
+        <mockito-junit-jupiter.version>5.21.0</mockito-junit-jupiter.version>
+        <mockito.version>5.21.0</mockito.version>
         <assertj.version>3.27.6</assertj.version>
         <hamcrest.version>2.2</hamcrest.version>
 
